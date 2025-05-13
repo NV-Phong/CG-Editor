@@ -4,6 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "random": "node index.js",
+    "matrix": "node matrix.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
