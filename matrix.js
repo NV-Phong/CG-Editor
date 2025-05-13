@@ -2,35 +2,59 @@ import moment from "moment";
 import simpleGit from "simple-git";
 import { markCommit } from "./utils.js";
 
-const makeCommits = async (startDate, endDate, commitsPerDay) => {
-   if (!moment(startDate).isValid() || !moment(endDate).isValid()) {
-      throw new Error('Invalid date format. Use YYYY-MM-DD');
-   }
+const git = simpleGit();
 
-   const start = moment(startDate);
-   const end = moment(endDate);
+// Chỉ định khoảng thời gian commit
+const startDate = "2024-11-17";
+const endDate = "2024-11-18";
+const commitsPerDay = 100;
 
-   if (end.isBefore(start)) {
-      throw new Error('End date must be after start date');
-   }
+// Thêm mảng các ngày được chỉ định
+const specifiedDates = [
+   //   "2024-11-03",
+];
 
-   if (commitsPerDay < 1) {
-      throw new Error('Commits per day must be at least 1');
-   }
+const makeCustomCommits = async () => {
+   const commits = [];
 
-   const git = simpleGit();
-   const currentDate = start.clone();
+   // Xử lý khoảng thời gian
+   const start = moment.utc(startDate);
+   const end = moment.utc(endDate);
+   const daysDiff = end.diff(start, "days") + 1;
 
-   while (currentDate.isSameOrBefore(end)) {
+   for (let day = 0; day < daysDiff; day++) {
+      const currentDate = start.clone().add(day, "days");
       for (let i = 0; i < commitsPerDay; i++) {
-         console.log(`Creating commit ${i + 1}/${commitsPerDay} for: ${currentDate.format('YYYY-MM-DD')}`);
-         await markCommit(currentDate);
+         const date = currentDate
+            .clone()
+            .add(i * ((24 * 60) / commitsPerDay), "minutes")
+            .toISOString();
+         commits.push(date);
       }
-      currentDate.add(1, 'days');
    }
 
-   console.log("Pushing all commits...");
+   // Xử lý các ngày được chỉ định
+   for (const specificDate of specifiedDates) {
+      const date = moment.utc(specificDate);
+      for (let i = 0; i < commitsPerDay; i++) {
+         const commitDate = date
+            .clone()
+            .add(i * ((24 * 60) / commitsPerDay), "minutes")
+            .toISOString();
+         commits.push(commitDate);
+      }
+   }
+
+   // Sắp xếp các commit theo thời gian
+   commits.sort();
+
+   for (const date of commits) {
+      console.log(`Tạo commit: ${date}`);
+      await markCommit(date);
+   }
+
+   console.log("Push commit...");
    await git.push();
 };
 
-makeCommits('2024-05-12', '2024-05-12', 50).catch(console.error);
+makeCustomCommits().catch(console.error);
