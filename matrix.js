@@ -5,13 +5,14 @@ import { markCommit } from "./utils.js";
 const git = simpleGit();
 
 // Chỉ định khoảng thời gian commit
-const startDate = "2024-12-16";
-const endDate = "2024-12-18";
+const startDate = "2025-04-27";
+const endDate = "2025-05-03";
 const commitsPerDay = 100;
 
 // Thêm mảng các ngày được chỉ định
 const specifiedDates = [
-   //   "2024-11-03",
+   "2025-04-16",
+   "2025-04-23",
 ];
 
 const makeCustomCommits = async () => {
@@ -48,9 +49,11 @@ const makeCustomCommits = async () => {
    // Sắp xếp các commit theo thời gian
    commits.sort();
 
+   let commitCount = 1;
    for (const date of commits) {
-      console.log(`Tạo commit: ${date}`);
+      console.log(`Tạo commit ${commitCount} • ${date}`);
       await markCommit(date);
+      commitCount++;
    }
 
    console.log("Push commit...");
