@@ -5,8 +5,8 @@ import { markCommit } from "./utils.js";
 const git = simpleGit();
 
 // Chỉ định khoảng thời gian commit
-const startDate = "2024-11-17";
-const endDate = "2024-11-18";
+const startDate = "2024-12-16";
+const endDate = "2024-12-18";
 const commitsPerDay = 100;
 
 // Thêm mảng các ngày được chỉ định
