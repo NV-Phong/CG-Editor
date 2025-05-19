@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { subDays, format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
@@ -13,6 +12,7 @@ import {
    PopoverContent,
    PopoverTrigger,
 } from "@/components/ui/popover";
+import Icon from "../ui-engineer/Icon";
 
 export function DatePicker({
    className,
@@ -30,11 +30,14 @@ export function DatePicker({
                   id="date"
                   variant={"outline"}
                   className={cn(
-                     "w-[300px] justify-start text-left font-normal",
+                     "justify-start text-left p-2",
                      !date && "text-muted-foreground"
                   )}
                >
-                  <CalendarIcon />
+                  <Icon
+                     styles="two-tone"
+                     name="calendar-02-twotone-rounded"
+                  />
                   {date?.from ? (
                      date.to ? (
                         <>
@@ -49,7 +52,7 @@ export function DatePicker({
                   )}
                </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-auto p-0" align="center">
                <Calendar
                   initialFocus
                   mode="range"
