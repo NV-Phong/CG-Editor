@@ -31,7 +31,7 @@ export function DateSelectionList({
       <ScrollArea className="h-20 w-65 rounded-md border p-2">
          <div className="h-full flex flex-wrap gap-1 justify-center items-center">
             {dateSelections.length === 0 ? (
-               <div className="w-full h-full flex items-center justify-center text-sm text-muted-foreground">
+               <div className="w-full h-15 flex items-center justify-center text-sm text-muted-foreground">
                   No dates selected
                </div>
             ) : (

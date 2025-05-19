@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Spotlight } from "@/components/aceternity/spotlight-new";
 
 export const metadata: Metadata = {
    title: "CG-Editor",
@@ -17,7 +18,10 @@ export default function RootLayout({
          className="scrollbar-hide selection:bg"
          suppressHydrationWarning
       >
-         <body>{children}</body>
+         <body>
+            <Spotlight />
+            {children}
+         </body>
       </html>
    );
 }
