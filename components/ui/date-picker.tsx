@@ -98,7 +98,7 @@ export function DatePicker({ className }: React.HTMLAttributes<HTMLDivElement>) 
    ), [date]);
 
    return (
-      <div className={cn("grid gap-2", className)}>
+      <div className={cn("grid gap-2 w-fit", className)}>
          <Popover>
             <PopoverTrigger asChild>
                <Button
