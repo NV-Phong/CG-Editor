@@ -19,7 +19,8 @@ export default function Home() {
                   </h1>
                   <p className="font-normal text-base text-neutral-700 max-w-3xl mx-auto">
                      This Contribution Graph Editor, built with NextJS, provides
-                     an intuitive interface with auto-commit functionality.
+                     an intuitive interface with auto-commit functionality. Remember checkout the Github Contribution 
+                     Graph to make sure you choose the true date to make commit changes.
                   </p>
                </div>
                <DatePicker />
