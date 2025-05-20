@@ -1,5 +1,6 @@
 "use client";
 import GradualSpacing from "@/components/magicui/gradual-spacing";
+import { CommitChanges } from "@/components/ui-engineer/commit-changes";
 import CommitsPerDay from "@/components/ui-engineer/commits-per-day";
 import ContributionGraph from "@/components/ui-engineer/contribution-graph";
 import { Button } from "@/components/ui/button";
@@ -57,10 +58,10 @@ export default function Home() {
                            <CardTitle className="text-xl">CALENDAR</CardTitle>
                            <CardDescription>
                               Double-check to pick the correct commit dates, or
-                              you’ll need extra commits to fix the wrong ones.
+                              you&apos;ll need extra commits to fix the wrong ones.
                            </CardDescription>
                         </CardHeader>
-                        <CardContent className="space-y-5">
+                        <CardContent className="space-y-4">
                            <div className="space-y-2 flex justify-between">
                               <div className="space-y-2">
                                  <Label>Stack Dates</Label>
@@ -80,9 +81,7 @@ export default function Home() {
                            >
                               Clear
                            </Button>
-                           <Button className="w-2/5" type="submit">
-                              Commit Changes
-                           </Button>
+                           <CommitChanges />
                         </CardFooter>
                      </Card>
                   </TabsContent>

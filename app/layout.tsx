@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Spotlight } from "@/components/aceternity/spotlight-new";
 import { MagicUIDock } from "@/components/layout/magicui-dock";
+import { ContributionGraphProvider } from "@/context/cg-context";
 
 export const metadata: Metadata = {
    title: "CG-Editor",
@@ -28,9 +29,11 @@ export default function RootLayout({
                disableTransitionOnChange
                themes={["light", "dark", "pastel-pink"]}
             >
+               <ContributionGraphProvider>
                <Spotlight />
                {children}
                <MagicUIDock />
+               </ContributionGraphProvider>
             </ThemeProvider>
          </body>
       </html>

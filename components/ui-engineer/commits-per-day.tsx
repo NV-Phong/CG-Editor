@@ -1,32 +1,33 @@
 "use client";
 
 import type React from "react";
-
-import { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import Icon from "./Icon";
-import { Input } from "../ui/input";
+import { Input } from "@/components/ui/input";
+import { useContributionGraphContext } from "@/context/cg-context";
 
 export default function CommitsPerDay() {
-   const [value, setValue] = useState<number | null>(null);
+   const { commitsPerDay, setCommitsPerDay } = useContributionGraphContext();
 
    const increment = () => {
-      setValue((prev) => (prev === null ? 1 : prev + 1));
+      setCommitsPerDay(commitsPerDay === null ? 1 : commitsPerDay + 1);
    };
 
    const decrement = () => {
-      setValue((prev) => (prev === null ? 0 : Math.max(0, prev - 1)));
+      setCommitsPerDay(
+         commitsPerDay === null ? 0 : Math.max(0, commitsPerDay - 1)
+      );
    };
 
    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const inputValue = e.target.value;
 
       if (inputValue === "") {
-         setValue(null);
+         setCommitsPerDay(null);
       } else {
          const newValue = Number.parseInt(inputValue);
          if (!isNaN(newValue) && newValue >= 0) {
-            setValue(newValue);
+            setCommitsPerDay(newValue);
          }
       }
    };
@@ -34,7 +35,7 @@ export default function CommitsPerDay() {
    return (
       <div className="flex items-center space-x-2">
          <Button
-            variant={"outline"}
+            variant="outline"
             className="p-2"
             onClick={decrement}
             aria-label="Decrease value"
@@ -42,15 +43,15 @@ export default function CommitsPerDay() {
             <Icon styles="stroke" name="arrow-left-01-stroke-standard" />
          </Button>
          <Input
-            className="w-30 text-center"
-            value={value === null ? "" : value}
+            className="w-20 text-center"
+            value={commitsPerDay === null ? "" : commitsPerDay}
             onChange={handleChange}
             type="number"
             min={0}
-            placeholder="100"
+            placeholder="0"
          />
          <Button
-            variant={"outline"}
+            variant="outline"
             className="p-2"
             onClick={increment}
             aria-label="Increase value"
