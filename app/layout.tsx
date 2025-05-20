@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "next-themes";
 import { Spotlight } from "@/components/aceternity/spotlight-new";
 
 export const metadata: Metadata = {
@@ -19,8 +20,16 @@ export default function RootLayout({
          suppressHydrationWarning
       >
          <body>
-            <Spotlight />
-            {children}
+            <ThemeProvider
+               attribute="class"
+               defaultTheme="pastel-pink"
+               enableSystem
+               disableTransitionOnChange
+               themes={["light", "dark", "pastel-pink"]}
+            >
+               <Spotlight />
+               {children}
+            </ThemeProvider>
          </body>
       </html>
    );

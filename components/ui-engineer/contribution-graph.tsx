@@ -244,7 +244,7 @@ export default function ContributionGraph() {
             <div className="flex items-center gap-2">
                <Icon color="var(--primary)" size={24} styles="solid" name="calendar-03-solid-rounded" />
                <h3 className="text-lg font-medium">Contribution Graph</h3>
-               <Badge variant={"secondary"} className="text-primary bg-primary/10 h-6">Comming Soon</Badge>
+               <Badge className="text-primary bg-primary/10 h-6 border border-primary/20">Comming Soon</Badge>
             </div>
             <div className="flex items-center gap-2">
                <Button

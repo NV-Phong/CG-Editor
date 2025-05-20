@@ -151,8 +151,8 @@ body {
 
 .pastel-pink {
    --radius: 0.7rem;
-   /* --background: oklch(1 0 0); */
-   --background: oklch(0.99 0.0142 84.58);
+   --background: oklch(1 0 0);
+   /* --background: oklch(0.99 0.0142 84.58); */
    --foreground: oklch(0.13 0.028 261.692);
    --card: oklch(1 0 0);
    --card-foreground: oklch(0.13 0.028 261.692);
