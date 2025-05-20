@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Spotlight } from "@/components/aceternity/spotlight-new";
+import { MagicUIDock } from "@/components/layout/magicui-dock";
 
 export const metadata: Metadata = {
    title: "CG-Editor",
@@ -22,13 +23,14 @@ export default function RootLayout({
          <body>
             <ThemeProvider
                attribute="class"
-               defaultTheme="pastel-pink"
+               defaultTheme="light"
                enableSystem
                disableTransitionOnChange
                themes={["light", "dark", "pastel-pink"]}
             >
                <Spotlight />
                {children}
+               <MagicUIDock />
             </ThemeProvider>
          </body>
       </html>

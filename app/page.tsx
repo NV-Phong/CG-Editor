@@ -18,20 +18,21 @@ import React, { useState } from "react";
 
 export default function Home() {
    const [currentTab, setCurrentTab] = useState("calendar");
+
    return (
-      <div className="relative min-h-screen">
-         <div className="relative z-10 flex items-center justify-center min-h-screen">
+      <div className="pt-20">
+         <div className="z-10 flex items-center justify-center">
             <div className="flex flex-col items-center justify-center">
                <div className="mb-9 max-w-7xl mx-auto w-full pt-20 md:pt-0 text-center">
                   <h1 className="h-40 text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-400 to-neutral-900 bg-opacity-50">
                      Wellcome !
                      <GradualSpacing
-                        className="font-display text-center text-5xl font-bold -tracking-widest text-neutral-900 md:text-7xl md:leading-[5rem]"
+                        className="font-display text-center text-5xl font-bold -tracking-widest text-neutral-900 dark:text-neutral-200 md:text-7xl md:leading-[5rem]"
                         text="CG-Editor"
                      />
                      <br />
                   </h1>
-                  <p className="font-normal text-base text-neutral-700 max-w-3xl mx-auto">
+                  <p className="font-normal text-base text-neutral-700 max-w-3xl mx-auto dark:text-neutral-500">
                      This Contribution Graph Editor, built with NextJS, provides
                      an intuitive interface with auto-commit functionality.
                      Remember checkout the Github Contribution Graph to make
@@ -55,8 +56,8 @@ export default function Home() {
                         <CardHeader>
                            <CardTitle className="text-xl">CALENDAR</CardTitle>
                            <CardDescription>
-                              Make changes to your account here. Click save when
-                              you&apos;re done.
+                              Double-check to pick the correct commit dates, or
+                              you’ll need extra commits to fix the wrong ones.
                            </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-5">
@@ -67,7 +68,7 @@ export default function Home() {
                               </div>
                               <div className="space-y-2">
                                  <Label>Commits Per Day</Label>
-                                 <CommitsPerDay/>
+                                 <CommitsPerDay />
                               </div>
                            </div>
                         </CardContent>

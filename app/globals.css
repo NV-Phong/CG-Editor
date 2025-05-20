@@ -73,6 +73,24 @@ body {
          opacity: 0;
       }
    }
+  @keyframes meteor {
+  0% {
+    transform:
+      rotate(var(--angle)) translateX(0);
+    opacity:
+      1;
+      }
+  70% {
+    opacity:
+      1;
+      }
+  100% {
+    transform:
+      rotate(var(--angle)) translateX(-500px);
+    opacity:
+      0;
+      }
+   }
 }
 
 :root {
@@ -116,9 +134,11 @@ body {
 .dark {
    --background: oklch(0.15 0 291);
    --foreground: oklch(0.985 0.002 247.839);
-   --card: oklch(0.21 0.034 264.665);
+   /* --card: oklch(0.21 0.034 264.665); */
+   --card: oklch(0.15 0 291);
    --card-foreground: oklch(0.985 0.002 247.839);
-   --popover: oklch(0.21 0.034 264.665);
+   /* --popover: oklch(0.21 0.034 264.665); */
+   --popover: oklch(0.15 0 291);
    --popover-foreground: oklch(0.985 0.002 247.839);
    --primary: oklch(0.928 0.006 264.531);
    --primary-foreground: oklch(0.21 0.034 264.665);
