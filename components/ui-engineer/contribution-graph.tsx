@@ -216,15 +216,15 @@ export default function ContributionGraph() {
    const getLevelColor = (level: ContributionLevel) => {
       switch (level) {
          case 0:
-            return "bg-[#ebedf0] hover:bg-[#dfe1e4] dark:bg-[#161b22] dark:hover:bg-[#1f2428]";
+            return "bg-muted hover:bg-muted-foreground dark:bg-muted dark:hover:bg-muted-foreground";
          case 1:
-            return "bg-[#9be9a8] hover:bg-[#8ad797] dark:bg-[#0e4429] dark:hover:bg-[#0f5230]";
+            return "bg-primary/40 hover:bg-primary-foreground-darker/40 dark:primary/40 dark:hover:bg-muted-foreground/40";
          case 2:
-            return "bg-[#40c463] hover:bg-[#39b359] dark:bg-[#006d32] dark:hover:bg-[#007c39]";
+            return "bg-primary/60 hover:bg-primary-foreground-darker/60 dark:bg-primary/60 dark:hover:bg-muted-foreground/60";
          case 3:
-            return "bg-[#30a14e] hover:bg-[#2c9447] dark:bg-[#26a641] dark:hover:bg-[#2cbc4a]";
+            return "bg-primary/80 hover:bg-primary-foreground-darker/80 dark:bg-primary/80 dark:hover:bg-muted-foreground/80";
          case 4:
-            return "bg-[#216e39] hover:bg-[#1e6433] dark:bg-[#39d353] dark:hover:bg-[#42f462]";
+            return "bg-primary hover:bg-primary-foreground-darker dark:bg-primary dark:hover:bg-primary-foreground";
       }
    };
 
@@ -256,7 +256,7 @@ export default function ContributionGraph() {
                   <ChevronLeft className="w-4 h-4 mr-1" />
                   {year - 1}
                </Button>
-               <span className="text-sm font-medium px-2 py-1 bg-emerald-50 dark:bg-emerald-900/20 rounded-md">
+               <span className="text-sm font-medium px-2 py-1 bg-primary/15 rounded-md">
                   {year}
                </span>
                <Button
@@ -274,10 +274,10 @@ export default function ContributionGraph() {
 
          {!isLoading && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-               <Card className="overflow-hidden border-emerald-100 dark:border-emerald-900/30">
+               <Card className="overflow-hidden">
                   <CardContent className="p-4 flex items-center gap-3">
-                     <div className="bg-emerald-50 dark:bg-emerald-900/20 p-2 rounded-full">
-                        <GitCommit className="w-5 h-5 text-emerald-500" />
+                     <div className="bg-primary/15 p-2 rounded-full">
+                        <GitCommit className="w-5 h-5 text-primary-foreground-darker" />
                      </div>
                      <div>
                         <p className="text-sm text-neutral-500">
@@ -289,10 +289,10 @@ export default function ContributionGraph() {
                      </div>
                   </CardContent>
                </Card>
-               <Card className="overflow-hidden border-emerald-100 dark:border-emerald-900/30">
+               <Card className="overflow-hidden">
                   <CardContent className="p-4 flex items-center gap-3">
-                     <div className="bg-emerald-50 dark:bg-emerald-900/20 p-2 rounded-full">
-                        <Flame className="w-5 h-5 text-emerald-500" />
+                     <div className="bg-primary/15 p-2 rounded-full">
+                        <Flame className="w-5 h-5 text-primary-foreground-darker" />
                      </div>
                      <div>
                         <div className="flex items-center gap-2">
@@ -327,177 +327,175 @@ export default function ContributionGraph() {
          <div className="relative">
             {isLoading ? (
                <div className="flex flex-col items-center justify-center h-40 gap-3">
-                  <div className="w-8 h-8 border-4 border-neutral-200 border-t-emerald-500 rounded-full animate-spin"></div>
+                  <div className="w-8 h-8 border-4 border-neutral-200 border-t-primary-ftext-primary-foreground-darker rounded-full animate-spin"></div>
                   <p className="text-sm text-neutral-500">
                      Loading contribution data...
                   </p>
                </div>
             ) : (
-               <Card className="overflow-hidden border-emerald-100 dark:border-emerald-900/30">
-                  <CardContent className="p-6">
-                     <div className="relative pb-6">
-                        {/* Month labels */}
-                        <div className="flex mb-6 pl-10">
-                           {getMonthLabels().map((label, i) => (
-                              <div
-                                 key={i}
-                                 className="text-xs text-neutral-500"
-                                 style={{
-                                    position: "absolute",
-                                    left: `${label.position * 14 + 40}px`,
-                                    top: 0,
-                                 }}
-                              >
-                                 {label.month}
-                              </div>
-                           ))}
-                        </div>
-
-                        <div className="flex">
-                           {/* Day labels */}
-                           <div className="flex flex-col h-[112px] mr-2 justify-between">
-                              <span className="text-xs text-neutral-500 h-4">
-                                 Mon
-                              </span>
-                              <span className="text-xs text-neutral-500 h-4">
-                                 Wed
-                              </span>
-                              <span className="text-xs text-neutral-500 h-4">
-                                 Fri
-                              </span>
-                           </div>
-
-                           {/* Contribution squares */}
-                           <div className="flex gap-[2px]">
-                              {weeks.map((week, weekIndex) => (
+               <Card className="overflow-hidden p-0">
+                  <div className="flex justify-center items-center">
+                     <CardContent id="hehe" className="p-5 w-fit h-fit">
+                        <div className="relative">
+                           {/* Month labels */}
+                           <div className="flex mb-2">
+                              {getMonthLabels().map((label, i) => (
                                  <div
-                                    key={weekIndex}
-                                    className="flex flex-col gap-[2px]"
+                                    key={i}
+                                    className="text-xs text-neutral-500 pl-12"
                                  >
-                                    {Array.from({ length: 7 }).map(
-                                       (_, dayIndex) => {
-                                          const day = week.find(
-                                             (d) =>
-                                                new Date(d.date).getDay() ===
-                                                dayIndex
-                                          );
-
-                                          if (!day) {
-                                             return (
-                                                <div
-                                                   key={dayIndex}
-                                                   className="w-[12px] h-[12px]"
-                                                ></div>
-                                             );
-                                          }
-
-                                          return (
-                                             <TooltipProvider key={dayIndex}>
-                                                <Tooltip delayDuration={0}>
-                                                   <TooltipTrigger asChild>
-                                                      <motion.div
-                                                         initial={{
-                                                            scale: 0.8,
-                                                            opacity: 0,
-                                                         }}
-                                                         animate={{
-                                                            scale: 1,
-                                                            opacity: 1,
-                                                         }}
-                                                         transition={{
-                                                            delay:
-                                                               weekIndex * 0.01,
-                                                         }}
-                                                         className={cn(
-                                                            "w-[12px] h-[12px] rounded-sm cursor-pointer transition-colors",
-                                                            getLevelColor(
-                                                               day.level
-                                                            ),
-                                                            day.date ===
-                                                               stats.bestDay
-                                                                  .date &&
-                                                               "ring-2 ring-offset-1 ring-emerald-500"
-                                                         )}
-                                                      />
-                                                   </TooltipTrigger>
-                                                   <TooltipContent
-                                                      side="top"
-                                                      className="text-xs p-0 overflow-hidden"
-                                                      sideOffset={5}
-                                                   >
-                                                      <div className="bg-neutral-900 text-white px-3 py-1.5">
-                                                         <div className="font-medium">
-                                                            {day.count === 0
-                                                               ? "No contributions"
-                                                               : `${
-                                                                    day.count
-                                                                 } contribution${
-                                                                    day.count >
-                                                                    1
-                                                                       ? "s"
-                                                                       : ""
-                                                                 }`}
-                                                         </div>
-                                                         <div className="text-neutral-300">
-                                                            {day.formattedDate}
-                                                         </div>
-                                                      </div>
-                                                      {day.date ===
-                                                         stats.bestDay.date && (
-                                                         <div className="bg-emerald-600 text-white px-3 py-1 text-[10px] font-medium">
-                                                            🏆 Most active day
-                                                            of the year
-                                                         </div>
-                                                      )}
-                                                   </TooltipContent>
-                                                </Tooltip>
-                                             </TooltipProvider>
-                                          );
-                                       }
-                                    )}
+                                    {label.month}
                                  </div>
                               ))}
                            </div>
-                        </div>
 
-                        {/* Legend */}
-                        <div className="flex items-center justify-end mt-8 gap-2">
-                           <span className="text-xs text-neutral-500">
-                              Less
-                           </span>
-                           {[0, 1, 2, 3, 4].map((level) => (
-                              <div
-                                 key={level}
-                                 className={cn(
-                                    "w-[12px] h-[12px] rounded-sm",
-                                    getLevelColor(level as ContributionLevel)
-                                 )}
-                              />
-                           ))}
-                           <span className="text-xs text-neutral-500">
-                              More
-                           </span>
-                           <TooltipProvider>
-                              <Tooltip>
-                                 <TooltipTrigger asChild>
-                                    <Button
-                                       variant="ghost"
-                                       size="icon"
-                                       className="h-6 w-6"
+                           <div className="flex">
+                              {/* Day labels */}
+                              <div className="flex flex-col h-[112px] mr-2 justify-between">
+                                 <span className="text-xs text-neutral-500 h-4">
+                                    Mon
+                                 </span>
+                                 <span className="text-xs text-neutral-500 h-4">
+                                    Wed
+                                 </span>
+                                 <span className="text-xs text-neutral-500 h-4">
+                                    Fri
+                                 </span>
+                              </div>
+
+                              {/* Contribution squares */}
+                              <div className="flex gap-1">
+                                 {weeks.map((week, weekIndex) => (
+                                    <div
+                                       key={weekIndex}
+                                       className="flex flex-col gap-1"
                                     >
-                                       <Info className="h-3 w-3" />
-                                    </Button>
-                                 </TooltipTrigger>
-                                 <TooltipContent>
-                                    <p className="text-xs">
-                                       Contribution activity over time
-                                    </p>
-                                 </TooltipContent>
-                              </Tooltip>
-                           </TooltipProvider>
+                                       {Array.from({ length: 7 }).map(
+                                          (_, dayIndex) => {
+                                             const day = week.find(
+                                                (d) =>
+                                                   new Date(d.date).getDay() ===
+                                                   dayIndex
+                                             );
+
+                                             if (!day) {
+                                                return (
+                                                   <div
+                                                      key={dayIndex}
+                                                      className="w-[12px] h-[12px]"
+                                                   ></div>
+                                                );
+                                             }
+
+                                             return (
+                                                <TooltipProvider key={dayIndex}>
+                                                   <Tooltip delayDuration={0}>
+                                                      <TooltipTrigger asChild>
+                                                         <motion.div
+                                                            initial={{
+                                                               scale: 0.8,
+                                                               opacity: 0,
+                                                            }}
+                                                            animate={{
+                                                               scale: 1,
+                                                               opacity: 1,
+                                                            }}
+                                                            transition={{
+                                                               delay:
+                                                                  weekIndex *
+                                                                  0.01,
+                                                            }}
+                                                            className={cn(
+                                                               "w-[12px] h-[12px] rounded-sm cursor-pointer transition-colors",
+                                                               getLevelColor(
+                                                                  day.level
+                                                               ),
+                                                               day.date ===
+                                                                  stats.bestDay
+                                                                     .date &&
+                                                                  "ring-1 ring-offset-1 ring-primary-foreground-darker"
+                                                            )}
+                                                         />
+                                                      </TooltipTrigger>
+                                                      <TooltipContent
+                                                         side="top"
+                                                         className="text-xs p-0 overflow-hidden"
+                                                         sideOffset={5}
+                                                      >
+                                                         <div className="bg-neutral-900 text-white px-3 py-1.5">
+                                                            <div className="font-medium">
+                                                               {day.count === 0
+                                                                  ? "No contributions"
+                                                                  : `${
+                                                                       day.count
+                                                                    } contribution${
+                                                                       day.count >
+                                                                       1
+                                                                          ? "s"
+                                                                          : ""
+                                                                    }`}
+                                                            </div>
+                                                            <div className="text-neutral-300">
+                                                               {day.formattedDate}
+                                                            </div>
+                                                         </div>
+                                                         {day.date ===
+                                                            stats.bestDay.date && (
+                                                            <div className="bg-primary text-white px-3 py-1 text-[10px] font-medium">
+                                                               🏆 Most active day
+                                                               of the year
+                                                            </div>
+                                                         )}
+                                                      </TooltipContent>
+                                                   </Tooltip>
+                                                </TooltipProvider>
+                                             );
+                                          }
+                                       )}
+                                    </div>
+                                 ))}
+                              </div>
+                           </div>
+
+                           {/* Legend */}
+                           <div className="flex items-center justify-end mt-8 gap-2">
+                              <span className="text-xs text-neutral-500">
+                                 Less
+                              </span>
+                              {[0, 1, 2, 3, 4].map((level) => (
+                                 <div
+                                    key={level}
+                                    className={cn(
+                                       "w-[12px] h-[12px] rounded-sm",
+                                       getLevelColor(level as ContributionLevel)
+                                    )}
+                                 />
+                              ))}
+                              <span className="text-xs text-neutral-500">
+                                 More
+                              </span>
+                              <TooltipProvider>
+                                 <Tooltip>
+                                    <TooltipTrigger asChild>
+                                       <Button
+                                          variant="ghost"
+                                          size="icon"
+                                          className="h-6 w-6"
+                                       >
+                                          <Info className="h-3 w-3" />
+                                       </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                       <p className="text-xs">
+                                          Contribution activity over time
+                                       </p>
+                                    </TooltipContent>
+                                 </Tooltip>
+                              </TooltipProvider>
+                           </div>
                         </div>
-                     </div>
-                  </CardContent>
+                     </CardContent>
+                  </div>
                </Card>
             )}
          </div>
@@ -506,11 +504,11 @@ export default function ContributionGraph() {
             <div className="text-center p-5">
                <p className="text-sm text-neutral-500">
                   Your best day was{" "}
-                  <span className="font-medium text-emerald-600">
+                  <span className="font-medium text-primary-foreground-darker">
                      {formatDate(stats.bestDay.date)}
                   </span>{" "}
                   with{" "}
-                  <span className="font-medium text-emerald-600">
+                  <span className="font-medium text-primary-foreground-darker">
                      {stats.bestDay.count} contributions
                   </span>
                </p>
