@@ -1,7 +1,18 @@
 "use client";
 import GradualSpacing from "@/components/magicui/gradual-spacing";
+import CommitsPerDay from "@/components/ui-engineer/commits-per-day";
 import ContributionGraph from "@/components/ui-engineer/contribution-graph";
+import { Button } from "@/components/ui/button";
+import {
+   Card,
+   CardContent,
+   CardDescription,
+   CardFooter,
+   CardHeader,
+   CardTitle,
+} from "@/components/ui/card";
 import { DatePicker } from "@/components/ui/date-picker";
+import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { useState } from "react";
 
@@ -29,7 +40,7 @@ export default function Home() {
                </div>
                <Tabs defaultValue={currentTab} onValueChange={setCurrentTab}>
                   <div className="flex justify-center">
-                     <TabsList>
+                     <TabsList className="bg-primary/15 border border-primary/20">
                         <TabsTrigger value="calendar" className="text-primary">
                            Calendar
                         </TabsTrigger>
@@ -38,11 +49,45 @@ export default function Home() {
                         </TabsTrigger>
                      </TabsList>
                   </div>
+
                   <TabsContent value="calendar" className="flex justify-center">
-                     <DatePicker />
+                     <Card className="w-xl">
+                        <CardHeader>
+                           <CardTitle className="text-xl">CALENDAR</CardTitle>
+                           <CardDescription>
+                              Make changes to your account here. Click save when
+                              you&apos;re done.
+                           </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-5">
+                           <div className="space-y-2 flex justify-between">
+                              <div className="space-y-2">
+                                 <Label>Stack Dates</Label>
+                                 <DatePicker />
+                              </div>
+                              <div className="space-y-2">
+                                 <Label>Commits Per Day</Label>
+                                 <CommitsPerDay/>
+                              </div>
+                           </div>
+                        </CardContent>
+                        <CardFooter className="align justify-between">
+                           <Button
+                              variant="outline"
+                              className="w-2/5"
+                              type="button"
+                           >
+                              Clear
+                           </Button>
+                           <Button className="w-2/5" type="submit">
+                              Commit Changes
+                           </Button>
+                        </CardFooter>
+                     </Card>
                   </TabsContent>
+
                   <TabsContent value="graph" className="flex justify-center">
-                  <ContributionGraph />
+                     <ContributionGraph />
                   </TabsContent>
                </Tabs>
             </div>

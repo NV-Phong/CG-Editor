@@ -105,7 +105,7 @@ export function DatePicker({ className }: React.HTMLAttributes<HTMLDivElement>) 
                   id="date"
                   variant="outline"
                   className={cn(
-                     "justify-start text-left p-2",
+                     "justify-start text-left p-2 font-normal",
                      !date && !dateSelections.length && "text-muted-foreground"
                   )}
                >
