@@ -17,7 +17,8 @@ import { useContributionGraphContext } from "@/context/cg-context";
 
 export function CommitChanges() {
    const [open, setOpen] = React.useState(false);
-   const { totalDays, commitsPerDay } = useContributionGraphContext();
+   const { totalDays, commitsPerDay } =
+      useContributionGraphContext();
 
    return (
       <>

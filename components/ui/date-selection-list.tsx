@@ -8,7 +8,7 @@ type DateSelection = Date | DateRange | undefined;
 
 interface DateSelectionListProps {
    dateSelections: DateSelection[];
-   onRemove: (index: number) => void;
+   onRemove?: (index: number) => void;
 }
 
 export function DateSelectionList({
@@ -41,17 +41,19 @@ export function DateSelectionList({
                      className="bg-secondary text-sm py-1 px-2 rounded-md flex items-center gap-1"
                   >
                      <span>{formatDateDisplay(selection)}</span>
-                     <Button
-                        onClick={() => onRemove(index)}
-                        variant={"ghost"}
-                        className="text-muted-foreground hover:text-foreground p-0 h-0"
-                     >
-                        <Icon
-                           styles="stroke"
-                           size={15}
-                           name="cancel-01-stroke-standard"
-                        />
-                     </Button>
+                     {onRemove && (
+                        <Button
+                           onClick={() => onRemove(index)}
+                           variant={"ghost"}
+                           className="text-muted-foreground hover:text-foreground p-0 h-0"
+                        >
+                           <Icon
+                              styles="stroke"
+                              size={15}
+                              name="cancel-01-stroke-standard"
+                           />
+                        </Button>
+                     )}
                   </div>
                ))
             )}
