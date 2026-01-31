@@ -58,7 +58,8 @@ export default function Home() {
                            <CardTitle className="text-xl">CALENDAR</CardTitle>
                            <CardDescription>
                               Double-check to pick the correct commit dates, or
-                              you&apos;ll need extra commits to fix the wrong ones.
+                              you&apos;ll need extra commits to fix the wrong
+                              ones.
                            </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
