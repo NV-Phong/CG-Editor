@@ -1,9 +1,5 @@
 <h1 align="center">CG-EDITOR</h1>
 
-### INTRODUCE
-
-This Contribution Graph Editor, built with NextJS, provides an intuitive interface with auto-commit functionality.
-
 ### INSTALL DEPENDENCIES
 
 ```sh
@@ -17,7 +13,9 @@ pnpm install
 pnpm dev
 
 # production
-pnpm start
+pnpm build
+# then run
+pnpm --filter cg-editor start
 ```
 ### ALPHABET
 
