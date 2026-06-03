@@ -24,6 +24,19 @@ const INITIAL_DATE = {
    to: new Date(),
 };
 
+/** Earliest date in the stack; used so calendar opens on the right year/month when re-opening after process. */
+function getEarliestFromSelections(
+   selections: DateSelection[],
+): Date | undefined {
+   let earliest: Date | undefined;
+   for (const sel of selections) {
+      if (!sel) continue;
+      const d = sel instanceof Date ? sel : sel.from;
+      if (d && (!earliest || d < earliest)) earliest = d;
+   }
+   return earliest;
+}
+
 export function DatePicker({
    className,
 }: React.HTMLAttributes<HTMLDivElement>) {
@@ -31,6 +44,49 @@ export function DatePicker({
       useContributionGraphContext();
    const [date, setDate] = React.useState<DateSelection>(INITIAL_DATE);
    const [open, setOpen] = React.useState(false);
+
+   // Reference date for calendar view: current picker range, or earliest in stack, or last time user had a selection (even if stack is now empty).
+   const calendarReferenceDate = React.useMemo(() => {
+      if (date) {
+         const d = date instanceof Date ? date : date.from;
+         if (d) return d;
+      }
+      const fromStack = getEarliestFromSelections(dateSelections);
+      if (fromStack) return fromStack;
+      return new Date();
+   }, [date, dateSelections]);
+
+   // Remember last "meaningful" reference so when stack is empty we still show that month (e.g. after Clear or after process).
+   const lastReferenceDateRef = React.useRef<Date>(new Date());
+   React.useEffect(() => {
+      if (date) {
+         const d = date instanceof Date ? date : date.from;
+         if (d) lastReferenceDateRef.current = d;
+      } else if (dateSelections.length > 0) {
+         const fromStack = getEarliestFromSelections(dateSelections);
+         if (fromStack) lastReferenceDateRef.current = fromStack;
+      }
+   }, [date, dateSelections]);
+
+   const [calendarMonth, setCalendarMonth] = React.useState<Date>(() => {
+      const d = calendarReferenceDate;
+      return new Date(d.getFullYear(), d.getMonth(), 1);
+   });
+
+   // When popover opens: show month of current selection, or stack, or last time user had a selection (even if stack is now empty).
+   React.useEffect(() => {
+      if (open) {
+         const fromDate = date
+            ? date instanceof Date
+               ? date
+               : date.from
+            : undefined;
+         const fromStack = getEarliestFromSelections(dateSelections);
+         const d =
+            fromDate ?? fromStack ?? lastReferenceDateRef.current ?? new Date();
+         setCalendarMonth(new Date(d.getFullYear(), d.getMonth(), 1));
+      }
+   }, [open, date, dateSelections]);
 
    const formatDate = (date: Date | undefined) =>
       date ? format(date, DATE_FORMAT) : "";
@@ -108,22 +164,20 @@ export function DatePicker({
       );
    }, [date, dateSelections, formatDateDisplay]);
 
-   const calendarComponent = React.useMemo(
-      () => (
-         <Calendar
-            initialFocus
-            mode="range"
-            defaultMonth={date instanceof Date ? date : date?.from}
-            selected={
-               date instanceof Date
-                  ? { from: date, to: date }
-                  : (date as DateRange)
-            }
-            onSelect={setDate}
-            numberOfMonths={2}
-         />
-      ),
-      [date],
+   const calendarComponent = (
+      <Calendar
+         initialFocus
+         mode="range"
+         month={calendarMonth}
+         onMonthChange={setCalendarMonth}
+         selected={
+            date instanceof Date
+               ? { from: date, to: date }
+               : (date as DateRange)
+         }
+         onSelect={setDate}
+         numberOfMonths={2}
+      />
    );
 
    return (
